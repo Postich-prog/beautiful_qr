@@ -1,0 +1,41 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <title>Qrt</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <header>
+            
+        </header>
+        <main>
+            <div class="main-page">
+                <div class="main-page__container-result">
+                    {% thumbnail qr.image "960x339" crop="center" upscale=True as im %}
+                        <img class="card-img my-2" src="{{ im.url }}">
+                    {% endthumbnail %}
+                </div>
+                <div class="main-page__container-form">
+                    <div class="logo">
+                        <h1>Qrt</h1>
+                    </div>
+                    <div class="description">
+                        С помощью этой формы вы сможете сгенерировать QR код для вашего сайта с использованием вашего изображения
+                    </div>
+                    <form id="upload-container" method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="submit" id="submit-btn">
+                            Генерация
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
