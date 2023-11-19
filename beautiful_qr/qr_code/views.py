@@ -117,7 +117,8 @@ def gen_qr_code(text: str, path_to_download: Path, path_to_save: Path = None):
         path_to_download = path_to_save
 
     background.save(path_to_download)
-    return background
+    print('QR создан')
+    return True
 
 
 # Главная страница
@@ -130,9 +131,15 @@ def index(request):
     if form.is_valid():
         qr = form.save(commit=False)
         text = qr.link
-        path_to_download = Path().joinpath("example", "example.jpg")  # Путь до фона qr кода
-        path_to_save = Path().joinpath("example", "example.png")  # Куда сохранять результат и под каким именем (обязательно в png)
-        qr.image = gen_qr_code(text, path_to_download, path_to_save)
+        img = str(qr.image)
+        # Путь до фона qr кода
+        path_to_download = Path().joinpath("media", img)
+        qr_img = img.split('.')[0] + 'QR.png'
+        # Куда сохранять результат и под каким именем (обязательно в png)
+        path_to_save = Path().joinpath("static", qr_img)
+        gen_qr_code(text, path_to_download, path_to_save)
+        print(path_to_save)
+        qr.qurl = qr_img
         qr.save()
         return redirect('qr_code_detail', pk=qr.id)
     return render(request, template, context)
@@ -141,12 +148,24 @@ def index(request):
 def qr_code_detail(request, pk):
     qr = get_object_or_404(QR, pk=pk)
     form = QRForm(request.POST or None, files=request.FILES or None)
+    qr_url = qr.qurl
+
     context = {
         'qr': qr,
         'form': form,
+        'qr_url': qr_url
     }
     if form.is_valid():
         qr = form.save(commit=False)
+        text = qr.link
+        img = str(qr.image)
+        # Путь до фона qr кода
+        path_to_download = Path().joinpath("example", img)
+        qr_img = img.split('.')[0] + 'QR.png'
+        # Куда сохранять результат и под каким именем (обязательно в png)
+        path_to_save = Path().joinpath("example", qr_img)
+        gen_qr_code(text, path_to_download, path_to_save)
+        qr.qurl = qr_img
         qr.save()
         return redirect('qr_code_detail', pk=qr.id)
     return render(request, 'qr_code_detail.html', context)

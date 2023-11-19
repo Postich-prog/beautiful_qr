@@ -6,7 +6,11 @@ class QR(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(
         'Картинка',
-        upload_to='pictures/',
+        upload_to='',
+    )
+    qurl = models.TextField(
+        'Путь к коду',
+        blank=True
     )
     qr = models.ImageField(
         'QR-код',

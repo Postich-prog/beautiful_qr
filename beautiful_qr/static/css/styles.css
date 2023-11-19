@@ -31,6 +31,9 @@ body {
 }
 .main-page__container-result img {
     width: 300px;
+    align-self: center;
+    justify-self: center;
+    height: 300px;
 }
 
 .main-page__container-form {

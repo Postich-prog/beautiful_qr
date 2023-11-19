@@ -1,4 +1,5 @@
 {% load static %}
+{% load thumbnail %}
 <!DOCTYPE html>
 <html lang="">
     <head>
@@ -12,7 +13,10 @@
         <main>
             <div class="main-page">
                 <div class="main-page__container-result">
-                    <img src="static/img/QR_code_for_mobile_English_Wikipedia.svg" />
+                    {% thumbnail qr.image "960x339" crop="center" upscale=True as im %}
+                        <img class="card-img my-2" src="{{ im.url }}">
+                        <img class="card-img my-2" src="{{ qr.qurl }}">
+                    {% endthumbnail %}
                 </div>
                 <div class="main-page__container-form">
                     <div class="logo">
