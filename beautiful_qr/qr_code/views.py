@@ -133,14 +133,14 @@ def index(request):
         text = qr.link
         img = str(qr.image)
         # Путь до фона qr кода
-        path_to_download = Path().joinpath("media", img)
         qr_img = img.split('.')[0] + 'QR.png'
+        qr.qurl = qr_img
+        qr.save()
+        path_to_download = Path().joinpath("media", img)
         # Куда сохранять результат и под каким именем (обязательно в png)
         path_to_save = Path().joinpath("static", qr_img)
         gen_qr_code(text, path_to_download, path_to_save)
         print(path_to_save)
-        qr.qurl = qr_img
-        qr.save()
         return redirect('qr_code_detail', pk=qr.id)
     return render(request, template, context)
 
