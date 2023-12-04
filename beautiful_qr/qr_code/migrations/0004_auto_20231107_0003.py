@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('qr_code', '0003_auto_20231107_0001'),
+        ("qr_code", "0003_auto_20231107_0001"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='qr',
-            name='image',
-            field=models.ImageField(upload_to='pictures/', verbose_name='Картинка'),
+            model_name="qr",
+            name="image",
+            field=models.ImageField(upload_to="pictures/", verbose_name="Картинка"),
         ),
     ]

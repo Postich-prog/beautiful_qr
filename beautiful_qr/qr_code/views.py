@@ -34,114 +34,178 @@ def gen_qr_code(text: str, path_to_download: Path, path_to_save: Path = None):
     length_qr = len(img) * coeff
 
     try:
-        background = Image.open(path_to_download).resize((length_qr, length_qr)).convert("RGBA")
+        background = (
+            Image.open(path_to_download).resize((length_qr, length_qr)).convert("RGBA")
+        )
     except:
         return False
 
-    back_im = Image.new('RGBA', (length_qr, length_qr), (0, 0, 0, 0))
+    back_im = Image.new("RGBA", (length_qr, length_qr), (0, 0, 0, 0))
 
-    black_1 = (0, 0, 0, 0)
     black_2 = (0, 0, 0, 230)
     white_1 = (255, 255, 255, 50)
     white_2 = (255, 255, 255, 230)
-
-    white_3 = (0, 0, 0, 0)
 
     idraw = ImageDraw.Draw(back_im, "RGBA")
 
     x = 0
     y = 0
     for string in qr.get_matrix():
-        this_str = ''
+        this_str = ""
         for i in string:
             if i:
-                this_str += '1'
-                # idraw.ellipse((x + coeff_small, y + coeff_small, x + coeff - coeff_small, y + coeff - coeff_small),
-                #               fill=black_2)
-
-                # idraw.rectangle((x, y, x + coeff, y + coeff), fill=black_1)
-
-                idraw.rectangle((x + coeff_small, y + coeff_small, x + coeff - coeff_small, y + coeff - coeff_small),
-                                fill=black_2)
-
+                this_str += "1"
+                idraw.rectangle(
+                    (
+                        x + coeff_small,
+                        y + coeff_small,
+                        x + coeff - coeff_small,
+                        y + coeff - coeff_small,
+                    ),
+                    fill=black_2,
+                )
 
             else:
-                this_str += '0'
-                # idraw.ellipse((x + coeff_small, y + coeff_small, x + coeff - coeff_small, y + coeff - coeff_small),
-                #               fill=white_2)
-                # idraw.rectangle((x, y, x + coeff, y + coeff), fill=white_1)
-                idraw.rectangle((x + coeff_small, y + coeff_small, x + coeff - coeff_small, y + coeff - coeff_small),
-                                fill=white_2)
+                this_str += "0"
+                idraw.rectangle(
+                    (
+                        x + coeff_small,
+                        y + coeff_small,
+                        x + coeff - coeff_small,
+                        y + coeff - coeff_small,
+                    ),
+                    fill=white_2,
+                )
             x += coeff
         x = 0
         y += coeff
 
     idraw.rectangle((0, 0, coeff * 9, coeff * 9), fill=white_1)
-    idraw.rectangle((length_qr, 0, length_qr - coeff * 9, coeff * 9), fill=white_1)
-    idraw.rectangle((0, length_qr, coeff * 9, length_qr - coeff * 9), fill=white_1)
-    idraw.rectangle((length_qr - coeff * 10, length_qr - coeff * 9, length_qr - coeff * 6, length_qr - coeff * 6),
+    idraw.rectangle((length_qr, 0, length_qr - coeff * 9, coeff * 9),
                     fill=white_1)
+    idraw.rectangle((0, length_qr, coeff * 9, length_qr - coeff * 9),
+                    fill=white_1)
+    idraw.rectangle(
+        (
+            length_qr - coeff * 10,
+            length_qr - coeff * 9,
+            length_qr - coeff * 6,
+            length_qr - coeff * 6,
+        ),
+        fill=white_1,
+    )
 
     idraw.rectangle((coeff, coeff, coeff * 8, coeff * 2), fill=black_2)
-    idraw.rectangle((length_qr - coeff * 8, coeff, length_qr - coeff, coeff * 2), fill=black_2)
+    idraw.rectangle(
+        (length_qr - coeff * 8, coeff, length_qr - coeff, coeff * 2),
+        fill=black_2
+    )
     idraw.rectangle((coeff, coeff * 7, coeff * 8, coeff * 8), fill=black_2)
-    idraw.rectangle((length_qr - coeff * 8, coeff * 7, length_qr - coeff, coeff * 8), fill=black_2)
-    idraw.rectangle((coeff, length_qr - coeff * 7, coeff * 8, length_qr - coeff * 8), fill=black_2)
-    idraw.rectangle((coeff, length_qr - coeff * 2, coeff * 8, length_qr - coeff), fill=black_2)
-    idraw.rectangle((length_qr - coeff * 7, length_qr - coeff * 7, length_qr - coeff * 8, length_qr - coeff * 8),
-                    fill=black_2)
+    idraw.rectangle(
+        (length_qr - coeff * 8, coeff * 7, length_qr - coeff, coeff * 8),
+        fill=black_2
+    )
+    idraw.rectangle(
+        (coeff, length_qr - coeff * 7, coeff * 8, length_qr - coeff * 8),
+        fill=black_2
+    )
+    idraw.rectangle(
+        (coeff, length_qr - coeff * 2, coeff * 8, length_qr - coeff),
+        fill=black_2
+    )
+    idraw.rectangle(
+        (
+            length_qr - coeff * 7,
+            length_qr - coeff * 7,
+            length_qr - coeff * 8,
+            length_qr - coeff * 8,
+        ),
+        fill=black_2,
+    )
     idraw.rectangle((coeff * 3, coeff * 3, coeff * 6, coeff * 6), fill=black_2)
-    idraw.rectangle((length_qr - coeff * 3, coeff * 3, length_qr - coeff * 6, coeff * 6), fill=black_2)
-    idraw.rectangle((coeff * 3, length_qr - coeff * 3, coeff * 6, length_qr - coeff * 6), fill=black_2)
+    idraw.rectangle(
+        (length_qr - coeff * 3, coeff * 3, length_qr - coeff * 6, coeff * 6),
+        fill=black_2,
+    )
+    idraw.rectangle(
+        (coeff * 3, length_qr - coeff * 3, coeff * 6, length_qr - coeff * 6),
+        fill=black_2,
+    )
     idraw.rectangle((coeff, coeff, coeff * 2, coeff * 8), fill=black_2)
     idraw.rectangle((coeff * 7, coeff, coeff * 8, coeff * 8), fill=black_2)
 
-    idraw.rectangle((length_qr - coeff, coeff, length_qr - coeff * 2, coeff * 8), fill=black_2)
-    idraw.rectangle((length_qr - coeff * 7, coeff, length_qr - coeff * 8, coeff * 8), fill=black_2)
+    idraw.rectangle(
+        (length_qr - coeff, coeff, length_qr - coeff * 2, coeff * 8),
+        fill=black_2
+    )
+    idraw.rectangle(
+        (length_qr - coeff * 7, coeff, length_qr - coeff * 8, coeff * 8),
+        fill=black_2
+    )
 
-    idraw.rectangle((coeff, length_qr - coeff, coeff * 2, length_qr - coeff * 8), fill=black_2)
-    idraw.rectangle((coeff * 7, length_qr - coeff, coeff * 8, length_qr - coeff * 8), fill=black_2)
+    idraw.rectangle(
+        (coeff, length_qr - coeff, coeff * 2, length_qr - coeff * 8),
+        fill=black_2
+    )
+    idraw.rectangle(
+        (coeff * 7, length_qr - coeff, coeff * 8, length_qr - coeff * 8),
+        fill=black_2
+    )
 
-    idraw.rectangle((length_qr - coeff * 10, length_qr - coeff * 10, length_qr - coeff * 9, length_qr - coeff * 5),
-                    fill=black_2)
-    idraw.rectangle((length_qr - coeff * 6, length_qr - coeff * 10, length_qr - coeff * 5, length_qr - coeff * 5),
-                    fill=black_2)
+    idraw.rectangle(
+        (
+            length_qr - coeff * 10,
+            length_qr - coeff * 10,
+            length_qr - coeff * 9,
+            length_qr - coeff * 5,
+        ),
+        fill=black_2,
+    )
+    idraw.rectangle(
+        (
+            length_qr - coeff * 6,
+            length_qr - coeff * 10,
+            length_qr - coeff * 5,
+            length_qr - coeff * 5,
+        ),
+        fill=black_2,
+    )
 
-    idraw.rectangle((length_qr - coeff * 6, length_qr - coeff * 10, length_qr - coeff * 10, length_qr - coeff * 9),
-                    fill=black_2)
-    idraw.rectangle((length_qr - coeff * 6, length_qr - coeff * 6, length_qr - coeff * 10, length_qr - coeff * 5),
-                    fill=black_2)
+    idraw.rectangle(
+        (
+            length_qr - coeff * 6,
+            length_qr - coeff * 10,
+            length_qr - coeff * 10,
+            length_qr - coeff * 9,
+        ),
+        fill=black_2,
+    )
+    idraw.rectangle(
+        (
+            length_qr - coeff * 6,
+            length_qr - coeff * 6,
+            length_qr - coeff * 10,
+            length_qr - coeff * 5,
+        ),
+        fill=black_2,
+    )
 
     background.paste(back_im, (0, 0), back_im)
     if path_to_save is not None:
         path_to_download = path_to_save
 
     background.save(path_to_download)
-    print('QR создан')
+    print("QR создан")
     return True
 
 
 # Главная страница
 def index(request):
-    template = 'index.html'
+    template = "index.html"
     form = QRForm(request.POST or None, files=request.FILES or None)
-    context = {
-        'form': form
-    }
-    if form.is_valid():
-        qr = form.save(commit=False)
-        text = qr.link
-        img = str(qr.image)
-        # Путь до фона qr кода
-        qr_img = img.split('.')[0] + 'QR.png'
-        qr.qurl = qr_img
-        qr.save()
-        path_to_download = Path().joinpath("media", img)
-        # Куда сохранять результат и под каким именем (обязательно в png)
-        path_to_save = Path().joinpath("static", qr_img)
-        gen_qr_code(text, path_to_download, path_to_save)
-        print(path_to_save)
-        return redirect('qr_code_detail', pk=qr.id)
+    context = {"form": form}
+    if request.method == "POST":
+        return qr_create(request)
     return render(request, template, context)
 
 
@@ -150,22 +214,24 @@ def qr_code_detail(request, pk):
     form = QRForm(request.POST or None, files=request.FILES or None)
     qr_url = qr.qurl
 
-    context = {
-        'qr': qr,
-        'form': form,
-        'qr_url': qr_url
-    }
+    context = {"qr": qr, "form": form, "qr_url": qr_url}
+    if request.method == "POST":
+        return qr_create(request)
+    return render(request, "qr_code_detail.html", context)
+
+
+def qr_create(request):
+    form = QRForm(request.POST or None, files=request.FILES or None)
     if form.is_valid():
         qr = form.save(commit=False)
         text = qr.link
         img = str(qr.image)
         # Путь до фона qr кода
-        path_to_download = Path().joinpath("example", img)
-        qr_img = img.split('.')[0] + 'QR.png'
-        # Куда сохранять результат и под каким именем (обязательно в png)
-        path_to_save = Path().joinpath("example", qr_img)
-        gen_qr_code(text, path_to_download, path_to_save)
+        qr_img = img.split(".")[0] + "QR.png"
         qr.qurl = qr_img
         qr.save()
-        return redirect('qr_code_detail', pk=qr.id)
-    return render(request, 'qr_code_detail.html', context)
+        path_to_download = Path().joinpath("media", img)
+        # Куда сохранять результат и под каким именем (обязательно в png)
+        path_to_save = Path().joinpath("static", qr_img)
+        gen_qr_code(text, path_to_download, path_to_save)
+    return redirect("qr_code_detail", pk=qr.id)

@@ -31,9 +31,6 @@ body {
 }
 .main-page__container-result img {
     width: 300px;
-    align-self: center;
-    justify-self: center;
-    height: 300px;
 }
 
 .main-page__container-form {
@@ -145,6 +142,22 @@ body {
     visibility: visible;
     -webkit-transition: all .3s ease;
 } 
+
+#upload-container textarea {
+    outline: none;
+    display: block;
+    background: rgba(131, 131, 227, 0.5);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgb(39, 33, 102);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
 
 #submit-btn:hover {
     transition: all .3s ease;

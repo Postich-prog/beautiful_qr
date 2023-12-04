@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('qr_code', '0002_auto_20231106_1100'),
+        ("qr_code", "0002_auto_20231106_1100"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='qr',
-            name='link',
-            field=models.TextField(verbose_name='Ссылка'),
+            model_name="qr",
+            name="link",
+            field=models.TextField(verbose_name="Ссылка"),
         ),
     ]

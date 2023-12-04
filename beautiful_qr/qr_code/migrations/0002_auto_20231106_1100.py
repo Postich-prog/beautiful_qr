@@ -4,20 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('qr_code', '0001_initial'),
+        ("qr_code", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='qr',
-            name='image',
-            field=models.ImageField(blank=True, upload_to='pictures/', verbose_name='Картинка'),
+            model_name="qr",
+            name="image",
+            field=models.ImageField(
+                blank=True, upload_to="pictures/", verbose_name="Картинка"
+            ),
         ),
         migrations.AddField(
-            model_name='qr',
-            name='qr',
-            field=models.ImageField(blank=True, upload_to='', verbose_name='QR-код'),
+            model_name="qr",
+            name="qr",
+            field=models.ImageField(blank=True, upload_to="", verbose_name="QR-код"),
         ),
     ]

@@ -5,4 +5,4 @@ from .models import QR
 class QRForm(forms.ModelForm):
     class Meta:
         model = QR
-        fields = ('link', 'image')
+        fields = ("link", "image")

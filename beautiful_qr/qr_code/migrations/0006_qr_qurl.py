@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('qr_code', '0005_auto_20231107_1118'),
+        ("qr_code", "0005_auto_20231107_1118"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='qr',
-            name='qurl',
-            field=models.TextField(blank=True, verbose_name='Путь к коду'),
+            model_name="qr",
+            name="qurl",
+            field=models.TextField(blank=True, verbose_name="Путь к коду"),
         ),
     ]
